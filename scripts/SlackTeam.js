@@ -48,6 +48,7 @@ SlackTeam = function(accessToken, name, url) {
 				if (typeof(data.members) != 'undefined')
 					for (var k in data.members)
 						that.users[data.members[k].id] = data.members[k].name;
+				that.onUpdated();
 			}, "JSON");
 	};
 	this.onUpdated = function() {
