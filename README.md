@@ -9,3 +9,4 @@ Auth Keys is stored only in your browser localStorage ([check out the code](http
 [Check it out](http://jeka-kiselyov.github.io/slack-notificator/) 
 
 ![Multiple Slack Teams Message Notifications](http://jeka-kiselyov.github.io/slack-notificator/Screenshot.png)
+
