@@ -1,7 +1,7 @@
 var slackAuth = {
 	clientId: '2960868201.4139681332',
 	clientSecret: '176db916bbd2bd828eaab2a886444a2b',
-	redirectURL: 'http://l-github.com/slacknotify/',
+	redirectURL: location.protocol + '//' + location.host + location.pathname,
 	accessTokens: []
 };
 
