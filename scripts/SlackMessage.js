@@ -9,7 +9,7 @@ SlackMessage = function(data, channel, team) {
 
 	this.attachments = data.attachments || [];
 
-	this.template = '<li class="list-group-item message-type-%type%" id="m_%id%">%icon% <a href="%url%">%team% / %channel%</a><br> %user%: %body% %preview%</li>';
+	this.template = '<li class="list-group-item slack-message-item message-type-%type%" data-ts="%ts%" id="m_%id%">%icon% <a href="%url%">%team% / %channel%</a><br> %user%: %body% %preview%</li>';
 
 	this.getNotificationTitle = function() {
 		return this.team.name + '/' + this.getChannelName();
@@ -25,6 +25,7 @@ SlackMessage = function(data, channel, team) {
 		this.text = this.text.replace(/<@([^>]+)>/gi, function(m, p){ return that.team.getUserNameById(p); });
 		return  this.template.split('%id%').join(this.id).
 			split('%body%').join(this.text).
+			split('%ts%').join(this.ts).
 			split('%type%').join(this.channel.type).
 			split('%icon%').join(this.getIcon()).
 			split('%preview%').join(this.getPreviewImage()).

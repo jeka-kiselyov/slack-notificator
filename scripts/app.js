@@ -1,6 +1,7 @@
 app = {};
 app.teams = [];
 app.alreadyInNotificationsIDs = [];
+app.messagesTimestamps = {};
 
 app.initInterface = function()
 {
@@ -50,10 +51,11 @@ app.fillItems = function()
   var messages = [];
 
   var addMessage = function(message) {
-    messages.push(message);
 
     if (typeof(app.alreadyInNotificationsIDs[message.id]) == 'undefined')
     {
+      messages.push(message);
+      app.messagesTimestamps[message.id] = message.ts;
       app.alreadyInNotificationsIDs[message.id] = true;
       desktopNotificator.addItem(message.getNotificationTitle(), message.getNotificationDescription());
     }
@@ -74,15 +76,21 @@ app.fillItems = function()
       for (var mk in app.teams[tk].ims[ck].messages)
         addMessage(app.teams[tk].ims[ck].messages[mk]);
 
+  if (!messages.length)
+    return;
+
   messages.sort(function(a,b) { return parseFloat(b.ts) - parseFloat(a.ts) } );
 
-
   var html = '';
-
   for (var k in messages)
     html += messages[k].getHTML();
 
-  $('#items_container').html(html);
+  $('#items_container').prepend(html);
+  $('#items_container .slack-message-item').sort(function(a,b) {
+       return +$(a).data('ts') < +$(b).data('ts');
+  }).appendTo('#items_container');
+  
+  $('.list-group-item-loading').addClass('hidden');
 }
 
 
