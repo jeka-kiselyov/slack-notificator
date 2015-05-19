@@ -79,7 +79,7 @@ app.fillItems = function()
   if (!messages.length)
     return;
 
-  messages.sort(function(a,b) { return parseFloat(b.ts) - parseFloat(a.ts) } );
+  //messages.sort(function(a,b) { return parseFloat(b.ts) - parseFloat(a.ts) } );
 
   var html = '';
   for (var k in messages)
@@ -87,7 +87,7 @@ app.fillItems = function()
 
   $('#items_container').prepend(html);
   $('#items_container .slack-message-item').sort(function(a,b) {
-       return +$(a).data('ts') < +$(b).data('ts');
+      return parseFloat($(b).data('ts')) - parseFloat($(a).data('ts'));
   }).appendTo('#items_container');
   
   $('.list-group-item-loading').addClass('hidden');
